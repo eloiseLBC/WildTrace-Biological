@@ -1,0 +1,31 @@
+# macOS
+.DS_Store
+
+# Xcode
+DerivedData/
+build/
+*.xcuserstate
+xcuserdata/
+*.moved-aside
+*.xccheckout
+*.xcscmblueprint
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# Archives / symbols
+*.ipa
+*.dSYM
+*.dSYM.zip
+
+# Certificates / provisioning / secrets
+*.mobileprovision
+*.cer
+*.p12
+*.pem
+*.key
+*.p8
+
+# WildTrace local secrets
+**/AppConfig.swift
