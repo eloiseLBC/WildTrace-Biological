@@ -1,6 +1,8 @@
 import Foundation
 
 struct BiologicalDailySummary: Codable {
+    var cityCountry = CityCountry()
+    var locationMetadata: LocationMetadata? = nil
     let schemaVersion: String
     let date: String
     let timezone: String
@@ -15,6 +17,8 @@ struct BiologicalDailySummary: Codable {
         case generatedAt = "generated_at"
         case sourceRawFile = "source_raw_file"
         case summary
+        case cityCountry = "city_country"
+        case locationMetadata = "location_metadata"
     }
     
     static func from(_ payload: BiologicalDayPayload) -> BiologicalDailySummary {
@@ -133,3 +137,4 @@ struct SummaryValues: Codable {
         case workoutCount = "workout_count"
     }
 }
+

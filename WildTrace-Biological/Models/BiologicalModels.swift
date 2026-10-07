@@ -1,6 +1,7 @@
 import Foundation
 
 struct BiologicalDayPayload: Codable {
+    var location: CollectionLocation? = nil
     let schemaVersion: String
     let source: BiologicalSource
     let date: String
@@ -12,6 +13,7 @@ struct BiologicalDayPayload: Codable {
     
     enum CodingKeys: String, CodingKey {
         case schemaVersion = "schema_version"
+        case location
         case source
         case date
         case timezone
@@ -124,3 +126,4 @@ struct SyncMetadata: Codable {
         case targetComputedObjectPath = "target_computed_object_path"
     }
 }
+
