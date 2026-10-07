@@ -3,6 +3,7 @@ import Foundation
 @MainActor
 final class BiologicalSyncService {
     
+    private let locationService = CollectionLocationService()
     private let healthKitService: HealthKitService
     private let oracleStorageService: OracleStorageService
     private let syncHistoryService: SyncHistoryService
@@ -45,20 +46,50 @@ final class BiologicalSyncService {
         
         onLog("Début synchronisation : \(days.count) jour(s).")
         
+        var capturedLocation: CollectionLocation?
+        var cityCountry = CityCountry()
+        let calendar = Calendar.current
+        if days.contains(where: { calendar.isDateInToday($0) }) {
+            onLog("Capture de la position de l’iPhone…")
+            do {
+                capturedLocation = try await locationService.capture()
+                onLog("Position enregistrée pour aujourd’hui.")
+            } catch {
+                onLog("Localisation indisponible : \(error.localizedDescription). La collecte continue.")
+            }
+            if let capturedLocation {
+                do {
+                    cityCountry = try await locationService.resolve(capturedLocation)
+                } catch {
+                    onLog("Géocodage indisponible : \(error.localizedDescription). Coordonnées conservées dans le raw.")
+                }
+            }
+        }
+
         for day in days {
             let dayString = DateUtils.dayFormatter.string(from: day)
             
             let rawObjectPath = "collected/to_compute/biological_raw_\(dayString).json"
             let dailyObjectPath = "collected/computed/biological_daily_\(dayString).json"
             
-            if skipAlreadySynced && syncHistoryService.contains(rawObjectPath) {
+            // Today's data is mutable; retry incomplete computed uploads independently.
+            if skipAlreadySynced && !calendar.isDateInToday(day) &&
+                syncHistoryService.contains(rawObjectPath) &&
+                (!uploadDailyComputed || syncHistoryService.contains(dailyObjectPath)) {
                 onLog("\(dayString) déjà synchronisé localement, ignoré.")
                 continue
             }
             
             onLog("Lecture HealthKit pour \(dayString)…")
             
-            let payload = try await healthKitService.collectBiologicalDay(for: day)
+            var payload = try await healthKitService.collectBiologicalDay(for: day)
+            if let location = capturedLocation,
+               let timestamp = DateUtils.isoFormatter.date(from: location.timestamp),
+               let start = DateUtils.isoFormatter.date(from: payload.range.start),
+               let end = DateUtils.isoFormatter.date(from: payload.range.end),
+               timestamp >= start && timestamp < end {
+                payload.location = location
+            }
             let rawData = try JSONUtils.encoder.encode(payload)
             
             try await oracleStorageService.upload(
@@ -71,7 +102,11 @@ final class BiologicalSyncService {
             onLog("Upload OK : \(rawObjectPath)")
             
             if uploadDailyComputed {
-                let dailySummary = BiologicalDailySummary.from(payload)
+                var dailySummary = BiologicalDailySummary.from(payload)
+                if let location = payload.location {
+                    dailySummary.cityCountry = cityCountry
+                    dailySummary.locationMetadata = LocationMetadata(location)
+                }
                 let dailyData = try JSONUtils.encoder.encode(dailySummary)
                 
                 try await oracleStorageService.upload(
@@ -92,3 +127,4 @@ final class BiologicalSyncService {
         syncHistoryService.clear()
     }
 }
+

@@ -10,9 +10,22 @@
 		546B496F2FC60265003EC63B /* WildTrace-Biological.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WildTrace-Biological.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		5437D2BF3076961D009FF47F /* Exceptions for "WildTrace-Biological" folder in "WildTrace-Biological" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 546B496E2FC60265003EC63B /* WildTrace-Biological */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		546B49712FC60265003EC63B /* WildTrace-Biological */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				5437D2BF3076961D009FF47F /* Exceptions for "WildTrace-Biological" folder in "WildTrace-Biological" target */,
+			);
 			path = "WildTrace-Biological";
 			sourceTree = "<group>";
 		};
@@ -244,12 +257,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "WildTrace-Biological/WildTrace-Biological.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7P6HBPSC4B;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "WildTrace lit vos données Santé pour créer votre résumé biologique et les envoyer vers votre stockage Oracle Cloud.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Associer votre position aux données biologiques du jour et l’envoyer vers votre stockage Oracle Cloud.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -286,12 +303,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "WildTrace-Biological/WildTrace-Biological.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7P6HBPSC4B;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "WildTrace lit vos données Santé pour créer votre résumé biologique et les envoyer vers votre stockage Oracle Cloud.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Associer votre position aux données biologiques du jour et l’envoyer vers votre stockage Oracle Cloud.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

@@ -94,6 +94,9 @@ struct BiologicalSyncView: View {
     
     private var actionsSection: some View {
         Section("Actions") {
+            Text("La synchronisation capture la position de l’iPhone pour aujourd’hui uniquement. Elle sera envoyée avec les données biologiques vers Oracle Cloud.")
+                .font(.footnote)
+                .foregroundStyle(.secondary)
             Button("Autoriser l’accès aux données Santé") {
                 Task {
                     await viewModel.requestHealthAuthorization()
@@ -132,3 +135,4 @@ struct BiologicalSyncView: View {
         }
     }
 }
+

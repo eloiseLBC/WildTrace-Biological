@@ -2,9 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Associer votre position aux données biologiques du jour et l’envoyer vers votre stockage Oracle Cloud.</string>
 	<key>NSServices</key>
 	<array>
 		<dict/>
 	</array>
 </dict>
 </plist>
+
